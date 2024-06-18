@@ -128,6 +128,10 @@ useEffect(() => {
       dataIndex: 'date'
     },
     {
+      title: 'Roll No.',
+      dataIndex: 'rollnum'
+    },
+    {
       title: 'Type',
       dataIndex: 'type'
     },
