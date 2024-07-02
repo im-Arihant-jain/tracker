@@ -9,7 +9,7 @@ const Register = () => {
           const {data} = await axios.post('http://localhost:8080/api/v1/users/register',values);
           message.success("Registration successfull");
           console.log(data);
-          Navigate('/')
+          Navigate('/login')
         }catch(err){
             console.log(err);
         }

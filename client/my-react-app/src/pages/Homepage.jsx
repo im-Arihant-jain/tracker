@@ -11,7 +11,7 @@ const Homepage = () => {
   const [frequency,setFrequency] = useState('7');
   const [type,setType] = useState('all');
  const [alltransactions, setAlltransactions] = useState([]);
- 
+ const [submit,setSubmit] = useState(false);
  const [groupdata, setgroupdata] = useState([]);
  const [isAnalytics,setIsAnalytics]  = useState(false);
  const [editable,setEditable] = useState(null)
@@ -20,9 +20,29 @@ const Homepage = () => {
  const [join,setjoin]  = useState(false);
  const [groups, setGroups] = useState([]);
  const [showgroup , setshowgroup] = useState(false);
+ const [reviews , setReviews] = useState(false);
+ const [revs , setRevs] = useState([]); // usi ki prep kr rha tha ekjyadatar time mera agar mai and hence its jab tak intern nhi lag jaat ito fir cp 
  const showform = false;
- const handleSubmitreview = (values) =>{
-  console.log(values);
+ const log = JSON.parse(localStorage.getItem('user'));
+ const handleSubmitreview = async (values) =>{
+    console.log(values);// groups groupdata.userid paas krenge and logedin in user kaa bhi paas krenge apni id bhi paas krunga 
+    try{
+        
+        const logname = log.name
+        console.log(logname);
+        const userid = groupdata.userid
+        const review = values.review;
+        const res = await axios.post('http://localhost:8080/api/v1/users/review', {
+          logname,  userid, review
+      });
+
+      console.log(res);
+      setRevs()
+      // review, userid, logid
+    }catch(err){
+      console.log(err);
+
+    }
  }
  const handleDelete = async (record) => {
   try {
@@ -33,6 +53,7 @@ const Homepage = () => {
       transactionId: record._id
     });
     message.success('Entry deleted');
+    setSubmit(!submit);
   //  fetchAllTransactions(); // Refresh the transactions list after deletion
   } catch (error) {
     console.log(error);
@@ -46,6 +67,7 @@ const handleSubmitjoin =async  (values) =>{
   // console.log(alltransactions);
   console.log(result[0].transactions);
   setgroupdata(result[0].transactions);
+  setshowgroup(true)
   
 }
 const handleSubmitgroup = async (values)=>{
@@ -57,7 +79,7 @@ const handleSubmitgroup = async (values)=>{
         const res = await axios.post('http://localhost:8080/api/v1/group/create-group', { user_id: user._id, name: values.name } );
         console.log(res);
         // core subjects padh leta
-        message.success('entry added');     // is it gonna be
+        message.success('entry added');      
   }catch(err){
     console.log(err);
     message.error('entry del');
@@ -96,6 +118,7 @@ useEffect(() => {
         // core subjects padh leta
         message.success('entry added');
         }
+        setSubmit(!submit);
       }catch(err){
         console.log(err);
       }
@@ -120,7 +143,7 @@ useEffect(() => {
     
     }
     getAllTransactions();
-  },[frequency ,type])
+  },[frequency ,type,submit])
   // OPTION NHI HAI NAA KYA KREIN NHI K RHA ACCOMODATION MAI AND HENCE I
   const columns = [
     {
@@ -187,17 +210,42 @@ useEffect(() => {
            setIsAnalytics(!isAnalytics)
            setshowgroup(false);
            // great for brain stormning
-           }}>View Analytics</button>
-        <button className='btn btn-secondary' onClick={()=> {setcreate(!create)}}>Share Analytics</button>
+           }}>View My Analytics</button>
+        <button className='btn btn-secondary' onClick={()=> {setcreate(!create)}}>Share Your Progress</button>
         <button className='btn btn-secondary' onClick={()=> setjoin(!join)}>View Users</button>
         <button className='btn btn-secondary' onClick={()=> {
-          setIsAnalytics(false);
-          setmodal(false);
-          setshowgroup(!showgroup)
-          }}>View others analytics</button>
-        
+          setmodal(false)
+          // ab vo khgi mai metal ki dress pehnti huu nd hence
+          setReviews(!reviews)
+          }}>View Reviews</button>
+          {/* until meri intern nhi lag jaaati it makes a lot of sense to do dsa so I will go that way definetly and rest I will go like */}
        </div>
        <div className='w-full mx-0 align-center'>
+       <div>
+      <label htmlFor="reviews-dropdown">Select a Review:</label>
+      <select id="reviews-dropdown" >
+        <option value="" disabled>Select a review</option>
+        {log.reviews.map((review, index) => (
+          <option key={index} value={review.review}>
+            {review.reviewerName}: {review.review}
+          </option>
+        ))}
+      </select>
+      {/* {selectedReview && (
+        <div>
+          <h3>Selected Review:</h3>
+          <p>{selectedReview}</p>
+        </div>
+      )} */}
+      {reviews && 
+        reviews.map((rev, index) => (
+          <React.Fragment key={index}>
+            <div>{rev.reviewerName}</div>
+            <div>{rev.review}</div>
+          </React.Fragment>
+        ))
+      }
+    </div>
          {showgroup && 
          <>
          <Analytics alltransactions={groupdata}/> 
@@ -264,6 +312,7 @@ useEffect(() => {
           </div>  
     </Form>
       </Modal>
+      
       <Modal visible={modal} title = {editable ? 'Edit transaction' : "Add Transaction"} 
       onCancel={() => setmodal(false)}
       footer = {false}
@@ -291,7 +340,7 @@ useEffect(() => {
                   <Select.Option value ="fee"></Select.Option>
                   <Select.Option value ="tax"></Select.Option>
                 </Select>
-              </Form.Item>
+              </Form.Item>  
               <Form.Item label = 'Reference' name = 'reference'>
                 <Input type="text" /> 
               </Form.Item>
