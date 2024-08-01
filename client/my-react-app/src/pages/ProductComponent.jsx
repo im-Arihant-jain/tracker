@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+axios.defaults.withCredentials = true;
 const ProductsComponent = () => {
   const [products, setProducts] = useState([]);
   const [load,setLoad] = useState(false);

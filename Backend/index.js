@@ -14,7 +14,38 @@ require('dotenv').config();
 app.use(morgan("dev"));
 app.use(express.json());
 // arey bhai mai kabhi kabaar bhul jaata hu phone krnaa usme kya and hence its alw
-app.use(cors());
+const whitelist = ['http://localhost:5173', 'http://example2.com'];
+
+// ✅ Enable pre-flight requests
+app.options('*', cors());
+
+const corsOptions = {
+  credentials: true,
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
+
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,
+//   optionsSuccessStatus: 200,
+// };
+
+// app.use(cors(corsOptions));
 async function main() {
   try {
     await mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });

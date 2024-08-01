@@ -1,12 +1,13 @@
 import React from 'react'
 import {Form, Input,message} from 'antd';
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const Navigate = useNavigate();
     const submitHandler = async (values) => {
         try{
-          const {data} = await axios.post('http://localhost:8080/api/v1/users/register',values);
+          const {data} = await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/users/register',values);
           message.success("Registration successfull");
           console.log(data);
           Navigate('/login')

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Layout from '../components/Layout'
  import axios from 'axios'
+ axios.defaults.withCredentials = true;
 import { Button ,Input,Form,Modal, Select, message, Table} from 'antd';
 import Analytics from '../components/Analytics';
 import './index.css'
@@ -36,7 +37,7 @@ const Homepage = () => {
         console.log(groupdata);
         const userid = groupdata[0].userid
         const review = values.review;
-        const res = await axios.post('http://localhost:8080/api/v1/users/review', {
+        const res = await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/users/review', {
           logname,  userid, review
       });
 
@@ -56,7 +57,7 @@ const Homepage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user);    // shrila prabhupada krishn  a kripamurty prabhu[ada kripa murty
     console.log(record);
-    await axios.post('http://localhost:8080/api/v1/transaction/delete-transaction', {
+    await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/transaction/delete-transaction', {
       transactionId: record._id
     });
     message.success('Entry deleted');
@@ -82,7 +83,7 @@ const handleSubmitgroup = async (values)=>{
         console.log(user);
         console.log(values);
         
-        const res = await axios.post('http://localhost:8080/api/v1/group/create-group', { user_id: user._id, name: values.name } );
+        const res = await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/group/create-group', { user_id: user._id, name: values.name } );
         console.log(res);
         // core subjects padh leta
         message.success('entry added');      
@@ -96,7 +97,7 @@ useEffect(() => {
   // Function to fetch groups from the API
   const fetchGroups = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/v1/group/get-group`);
+      const res = await axios.get(`https://expensetracker-seven-pearl.vercel.app/api/v1/group/get-group`);
       // console.log(res.data)  
       setGroups(res.data.groupdata); // Assuming the response has a groups array
     } catch (err) {
@@ -112,14 +113,14 @@ useEffect(() => {
         if(editable){
           const user = JSON.parse(localStorage.getItem('user'));
           console.log(user);
-          await axios.post('http://localhost:8080/api/v1/transaction/edit-transaction',{payload:{userid: user._id, ...values} , transactionId:editable._id})
+          await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/transaction/edit-transaction',{payload:{userid: user._id, ...values} , transactionId:editable._id})
           setEditable(null);
           // core subjects padh leta
           message.success('entry updated');
         }else{
           const user = JSON.parse(localStorage.getItem('user'));
         console.log(user);
-        await axios.post('http://localhost:8080/api/v1/transaction/add-transaction',{userid: user._id, ...values})
+        await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/transaction/add-transaction',{userid: user._id, ...values})
         setEditable(null);
         // core subjects padh leta
         message.success('entry added');
@@ -139,7 +140,7 @@ useEffect(() => {
       try{
         // console.log(type);
         const user = JSON.parse(localStorage.getItem('user'));
-       const res =  await axios.post('http://localhost:8080/api/v1/transaction/get-transaction',{type,frequency,userid: user._id})
+       const res =  await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/transaction/get-transaction',{type,frequency,userid: user._id})
         // console.log(alltransactions);
         setAlltransactions(res.data);
       }catch(error){

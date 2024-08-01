@@ -2,11 +2,12 @@ import React from 'react'
 import {Form, Input ,message} from 'antd';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+axios.defaults.withCredentials = true;
 const Login = () => {
     const Navigate = useNavigate();
     const submitHandler = async (values) => {
         try{
-         const {data} = await axios.post('http://localhost:8080/api/v1/users/login',values);
+         const {data} = await axios.post('https://expensetracker-seven-pearl.vercel.app/api/v1/users/login',values);
           console.log(data);
           message.success("Login successful");
           localStorage.setItem('user', JSON.stringify(data));
