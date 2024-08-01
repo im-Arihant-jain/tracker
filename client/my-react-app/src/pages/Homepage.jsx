@@ -3,8 +3,11 @@ import Layout from '../components/Layout'
  import axios from 'axios'
 import { Button ,Input,Form,Modal, Select, message, Table} from 'antd';
 import Analytics from '../components/Analytics';
-
+import './index.css'
 import {DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import ProductsComponent from './ProductComponent';
+import Reviews from './Reviews';
+import ModelTransaction from './ModelTransaction';
 // import Group  from '../components/Group';
 const Homepage = () => {
   const [modal,setmodal] = useState(false);
@@ -30,19 +33,23 @@ const Homepage = () => {
         
         const logname = log.name
         console.log(logname);
-        const userid = groupdata.userid
+        console.log(groupdata);
+        const userid = groupdata[0].userid
         const review = values.review;
         const res = await axios.post('http://localhost:8080/api/v1/users/review', {
           logname,  userid, review
       });
 
       console.log(res);
-      setRevs()
+      // setRevs()
       // review, userid, logid
     }catch(err){
       console.log(err);
 
     }
+ }
+ const handlesetModal= ()=>{
+  setmodal(false);
  }
  const handleDelete = async (record) => {
   try {
@@ -61,10 +68,9 @@ const Homepage = () => {
   }
 };
 const handleSubmitjoin =async  (values) =>{
-  console.log(values.groups);   
-  console.log(groups);
-  const result = groups.filter( group => group.name == values.groups);  // lagata tujhe mere naam kaa jikar kabhi bhi hoga nhi an d
-  // console.log(alltransactions);
+  // console.log(values.groups);   
+  // console.log(groups);
+  const result = groups.filter( group => group.name == values.groups);   
   console.log(result[0].transactions);
   setgroupdata(result[0].transactions);
   setshowgroup(true)
@@ -186,66 +192,57 @@ useEffect(() => {
     },
   ];
   return (
-    <Layout>
-       <div className='filters'>
+    <div className='full'>
+      
+       <div className='revsechome' >
          
-        <div>
-          <h6>Select frequency</h6>
-          <Select value={frequency } onChange={(values)=>setFrequency(values)}>
-          <Select.Option value='7'>Last Week</Select.Option>
-          <Select.Option value='30'>Last Month</Select.Option>
-          <Select.Option value='365'>Last Year</Select.Option>
-          </Select>
-        </div>    
-        <div>
-          <h6>Select Expense-Type</h6>
-          <Select value={type} onChange={(values) => setType(values)}> {/* Fixed value binding */}
-            <Select.Option value='all'>All</Select.Option>
-            <Select.Option value='expense'>Expense</Select.Option>
-            <Select.Option value='saving'>Saving</Select.Option>
-        </Select>
-        </div>
-        <button className='btn btn-secondary' onClick={()=> setmodal(true)}>Add New</button>
-        <button className='btn btn-secondary' onClick={()=>{
+         <div className='filters'>
+        
+        <button style={{ backgroundColor: '#ffdd40',color:'brown', fontWeight:'bold' }} className='btn btn-secondary' onClick={()=> setmodal(true)}>Add New</button>
+        <button style={{ backgroundColor: '#ffdd40',color:'brown', fontWeight:'bold' }} className='btn btn-secondary' onClick={()=>{
            setIsAnalytics(!isAnalytics)
            setshowgroup(false);
            // great for brain stormning
-           }}>View My Analytics</button>
-        <button className='btn btn-secondary' onClick={()=> {setcreate(!create)}}>Share Your Progress</button>
-        <button className='btn btn-secondary' onClick={()=> setjoin(!join)}>View Users</button>
-        <button className='btn btn-secondary' onClick={()=> {
+           }}>{!isAnalytics? `Show My Analytics`: `Show My Expenses`}</button>
+        <button className='btn btn-secondary' style={{ backgroundColor: '#ffdd40',color:'brown', fontWeight:'bold' }}
+ onClick={()=> {setcreate(!create)}}>Share Your Progress</button>
+        <button className='btn btn-secondary' onClick={()=> setjoin(!join)} style={{ backgroundColor: '#ffdd40',color:'brown', fontWeight:'bold' }}>View Users</button>
+        {/* <button className='btn btn-secondary' onClick={()=> {
           setmodal(false)
           // ab vo khgi mai metal ki dress pehnti huu nd hence
           setReviews(!reviews)
-          }}>View Reviews</button>
-          {/* until meri intern nhi lag jaaati it makes a lot of sense to do dsa so I will go that way definetly and rest I will go like */}
+          }}>View Reviews</button> */}
+          {/* until meri jaldi uthne kaa and hence its always good to make intern nhi lag jaaati it makes a lot of sense to do dsa so I will go that way definetly and rest I will go like */}
        </div>
-       <div className='w-full mx-0 align-center'>
-       <div>
-      <label htmlFor="reviews-dropdown">Select a Review:</label>
-      <select id="reviews-dropdown" >
-        <option value="" disabled>Select a review</option>
-        {log.reviews.map((review, index) => (
-          <option key={index} value={review.review}>
-            {review.reviewerName}: {review.review}
-          </option>
-        ))}
-      </select>
-      {/* {selectedReview && (
-        <div>
-          <h3>Selected Review:</h3>
-          <p>{selectedReview}</p>
+       <div className="container">
+      
+        <div className="selector">
+          <h6>Select frequency</h6>
+          <Select  value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select.Option value="7">Last Week</Select.Option>
+            <Select.Option value="30">Last Month</Select.Option>
+            <Select.Option value="365">Last Year</Select.Option>
+          </Select>
         </div>
-      )} */}
-      {reviews && 
-        reviews.map((rev, index) => (
-          <React.Fragment key={index}>
-            <div>{rev.reviewerName}</div>
-            <div>{rev.review}</div>
-          </React.Fragment>
-        ))
-      }
+        <div className="revhead">{isAnalytics? ``: `EXPENSES`}</div>
+        <div className="selector">
+          <h6>Select Expense-Type</h6>
+          <Select value={type} onChange={(values) => setType(values)}>
+            <Select.Option value="all">All</Select.Option>
+            <Select.Option value="expense">Expense</Select.Option>
+            <Select.Option value="saving">Saving</Select.Option>
+          </Select>
+        </div>
+     
+      
     </div>
+    </div>
+      
+       
+       <div className='w-full mx-0 align-center'>
+        
+    
+    
          {showgroup && 
          <>
          <Analytics alltransactions={groupdata}/> 
@@ -259,7 +256,7 @@ useEffect(() => {
                      <Input type="text" /> 
                    </Form.Item>
                    <div>
-                     <button type='submit' className='btn btn-secondary'>Save</button>
+                     <button type='submit' className='btn btn-secondary' >Save</button>
                    </div>
            </Form>
            </>
@@ -275,8 +272,10 @@ useEffect(() => {
     }))}
   /> : <Analytics alltransactions={alltransactions}/>}
        </div>
+       {/* <Reviews/> */}
+     {/* <ProductsComponent/> */}
        <Modal visible ={create}  title = "Create Group" 
-      onCancel={() => setcreate(false)}
+      onCancel={() => setcreate(false)} 
       footer = {false}
       >   <Form layout = 'vertical'
                 // initialValues={editable}
@@ -290,7 +289,7 @@ useEffect(() => {
               </div>
       </Form>
       </Modal>
-      <Modal visible={join} title = 'Select group' 
+      <Modal visible={join} title = 'Share a user_name' 
       onCancel={() => setjoin(false)}
       footer = {false}
       >   
@@ -313,49 +312,14 @@ useEffect(() => {
     </Form>
       </Modal>
       
-      <Modal visible={modal} title = {editable ? 'Edit transaction' : "Add Transaction"} 
-      onCancel={() => setmodal(false)}
-      footer = {false}
-      
-      >   <Form layout = 'vertical'
-                initialValues={editable}
-                onFinish={handleSubmit}>
-              <Form.Item label = 'Amount' name = 'amount'>
-                <Input type="text" />   
-              </Form.Item>
-              <Form.Item label = 'Type' name = 'type'>
-                <Select>
-                  <Select.Option value ="expense">expense</Select.Option>
-                  <Select.Option value ="saving">saving</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item label = 'Category' name = 'category'>
-                <Select>
-                  <Select.Option value ="salary"></Select.Option>
-                  <Select.Option value ="tip"></Select.Option>
-                  <Select.Option value ="project"></Select.Option>
-                  <Select.Option value ="food"></Select.Option>
-                  <Select.Option value ="movie"></Select.Option>
-                  <Select.Option value ="bills"></Select.Option>
-                  <Select.Option value ="fee"></Select.Option>
-                  <Select.Option value ="tax"></Select.Option>
-                </Select>
-              </Form.Item>  
-              <Form.Item label = 'Reference' name = 'reference'>
-                <Input type="text" /> 
-              </Form.Item>
-              <Form.Item label = 'Description' name = 'description'>
-                <Input type="text" /> 
-              </Form.Item>
-              <Form.Item label = 'Date' name = 'date'>
-                <Input type="date" /> 
-              </Form.Item>
-              <div>
-                <button type='submit' className='btn btn-secondary'>Save</button>
-              </div>
-      </Form>
-      </Modal>
-    </Layout>
+      <ModelTransaction
+        modal={modal}
+        setModal={handlesetModal}
+        editable={editable}
+        handleSubmit={handleSubmit}
+      />
+
+</div>
     
   )
 }

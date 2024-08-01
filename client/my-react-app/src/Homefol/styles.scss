@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+
+.break-on-small {
+  display: inline-flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .break-on-small {
+    display: inline-block;
+    margin-right: 5px; /* Optional, to add space between the lines */
+  }
+}
+
+.home {
+  background-image: url('https://media.istockphoto.com/id/2149600154/photo/cost-reduction-business-finance-concept-businessman-with-virtual-screen-of-cost-reduction.jpg?s=2048x2048&w=is&k=20&c=vLde6NauR3Sjdc7fJ3dGEiKD9wIGgDXw01RRsUWplRc=');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 20px; /* Adjust as needed */
+}
+
+.home__text-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%; /* Ensure it takes full width */
+
+  h1 {
+    color: var(--yellow-theme-main-color);
+    margin: 0px;
+    font-weight: 500;
+    font-size: 6rem;
+    font-style: italic;
+    line-height: 10rem;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typingEffectAnimation 2.5s steps(20, end);
+  }
+
+  .home__bullet-points {
+    color: var(--yellow-theme-main-color);
+    font-family: 'Times New Roman', Times, serif;
+    font-style: oblique;
+    margin-top: 20px;
+    padding-left: 20px;
+    font-size: 2rem;
+    // color: var(--yellow-theme-sub-text-color);
+    list-style-type: disc;
+
+    li {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.home__contact-me {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+
+  button {
+    cursor: pointer;
+    padding: 10px 70px;
+    font-size: 2rem;
+    background: transparent;
+    color: var(--yellow-theme-main-color);
+    border: 1.5px solid var(--yellow-theme-main-color);
+    border-radius: 4px;
+    font-weight: 500;
+
+    &:hover {
+      background: var(--yellow-theme-main-color);
+      color: #000000;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .home__text-wrapper h1 {
+    font-size: 3rem;
+    line-height: 5rem;
+  }
+
+  .home__bullet-points {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 768px) {
+  .home__text-wrapper h1 {
+    font-size: 4rem;
+    line-height: 6rem;
+  }
+
+  .home__bullet-points {
+    font-size: 1.75rem;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 990px) {
+  .home__text-wrapper h1 {
+    font-size: 6rem;
+    line-height: 8rem;
+  }
+
+  .home__bullet-points {
+    font-size: 2rem;
+  }
+}
+
+@keyframes typingEffectAnimation {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}

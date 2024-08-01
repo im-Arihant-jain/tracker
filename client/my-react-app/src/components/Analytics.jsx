@@ -55,14 +55,19 @@ const Analytics = ({ alltransactions  }) => {
               <Progress
                 type="circle"
                 strokeColor="green"
+                
+                trailColor="#e6f4ff"
                 percent={totalIncomepercent.toFixed(0)}
-                className=" "
+                className=" custom-progress-circle"
+                
               />
               <Progress
                 type="circle"
+                trailColor="#e6f4ff"
                 strokeColor="red"
                 percent={totalExpensepercent.toFixed(0)}
-                className=" "
+                className=" custom-progress-circle"
+
               />
             </div>
           </div>
@@ -78,14 +83,18 @@ const Analytics = ({ alltransactions  }) => {
               <Progress
                 type="circle"
                 strokeColor="green"
+                
+                trailColor="#e6f4ff"
                 percent={totalincometurnoverpercent.toFixed(0)}
-                className=""
+                className="custom-progress-circle"
               />
               <Progress
                 type="circle"
                 strokeColor="red"
+                
+                trailColor="#e6f4ff"
                 percent={totalexpensiveturnoverpercent.toFixed(0)}
-                className=" "
+                className=" custom-progress-circle"
               />
             </div>
           </div>
@@ -104,7 +113,7 @@ const Analytics = ({ alltransactions  }) => {
         
              return(
                 <div className="card cardy">
-                    <div className=" category-amount ">
+                    <div className=" category-amount">
                       <div className="category">{category}</div>  
                     
                   <div className="amount"> {amount}</div> </div>
@@ -129,12 +138,12 @@ const Analytics = ({ alltransactions  }) => {
         
              return(
                 <div className="card cardy">
-                    <div className=" category-amount ">
+                    <div className=" category-amountexp ">
                       <div className="category">{category}</div>  
                     
                   <div className="amount"> {amount}</div> </div>
                     <Progress
-                
+                strokeColor="red"
                 percent={((amount/totalexpensiveturnover)*100).toFixed(0)}
                 className=""
               />

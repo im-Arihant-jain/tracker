@@ -11,7 +11,10 @@ email:{
     type:String,
 required: [true, 'email is required and should be unique'], 
 },
-
+reviews: [{
+    review: String,
+    reviewerName: String
+  }],
 password: {
     type:String,
 required:[true, 'password is required']

@@ -1,0 +1,219 @@
+ 
+.custom-row-style {
+    background-color: #7c6f6f;
+    color: azure;
+     font-size: medium;
+     text-transform: uppercase;
+  }
+  /* your-css-file.css */
+  .custom-header {
+    background-color: #4CAF50; /* Example color */
+    color: white; /* Optional: Change text color */
+  }
+  
+  
+  .custom-header .ant-table-cell {
+    background-color: #4CAF50; /* Ensure cells match the header row */
+    color: white; /* Optional: Change text color */
+  }
+  
+  
+  
+  
+  .custom-row-style:hover {
+    background-color: #7c6f6f;
+    color: black
+   /* Light grey background */
+  }
+  body {
+    background-color: black;
+  }
+  
+  .register {
+    box-shadow: #695858;
+    z-index: 2;
+    border: #7c6f6f solid 2px;
+    border-radius: 2em;
+    padding: 10px;
+    margin: 10%;
+    display: block;
+    justify-content: center;
+    background-color: white; /* Optional: to make the form's background white */
+  }
+  
+   .table{
+    background-color: aqua;
+   }
+   .review-item {
+  
+  
+    border-bottom: 1px solid #ddd;
+    padding: 10px 10px;
+  }
+  .revsechome{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+  .revsec{
+    height: 100%;
+    background: var(--yellow-theme-background-color);
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+  .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 300px;
+  }
+  
+  
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  
+  .product-card h2 {
+    color:whitesmoke ;
+    font-size: 1.2em;
+  }
+  
+  
+  .product-card p {
+    margin: 10px 0;
+    color: whitesmoke;
+  }
+  
+  
+  .product-card a {
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  
+  .revhead{
+    color: #c0aeae;
+  font-size: 4rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    /* font-size: large; */
+    font-weight: bold;
+  }
+  .reviewer-name {
+    font-size: large;
+    color: #c0aeae;
+    font-weight: bold;
+  }
+  
+  
+  .review-text {
+    font-size: medium;
+    font-style: italic;
+    color: #c0aeae;
+    margin-top: 5px;
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  
+  /* .selectors {
+    display: flex;
+    padding: 0;
+    margin-right: auto;
+  }
+  
+  
+  .selector {
+    margin-right: 20px;  
+  }
+  */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--yellow-theme-background-color);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+  }
+  .full{
+    background: var(--yellow-theme-background-color);
+    height: 100%;
+
+  }
+   
+  
+  
+   .filters{
+    margin-top: 20px;
+    margin-bottom: 20px;
+     display: flex;
+     justify-content: space-between;
+     margin-left: 10px;
+     margin-right: 10px ;
+   }
+   .custom-flex {
+    display: flex;
+    justify-content: space-around;
+     
+  }
+   
+  .custom-progress-circle {
+    color: white; /* Set the text color to white */
+  }
+  
+  .cardy{      
+    background-color: rgb(187, 62, 62);
+    padding: 2%;
+  }
+  .category-amount{
+    background-color: #b6cb62;
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1%;
+  }
+  .category-amountexp{
+    background-color: #daa466;
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1%;
+  }
+  .custom-text-4xl {
+    color: #ddd;
+    font-size: 1.25rem; /* Equivalent to text-4xl in Tailwind CSS */
+     line-height: 1.5rem;  }  
+  
+  
+  .custom-flex {
+    color: #ddd;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  
+  .custom-flexhead{
+    color: #ddd;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  
